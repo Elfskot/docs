@@ -71,6 +71,8 @@
         
             <li><a class="toctree-l4" href="#crmaccount">CrmAccount</a></li>
         
+            <li><a class="toctree-l4" href="#crmcontact">CrmContact</a></li>
+        
             <li><a class="toctree-l4" href="#feature">Feature</a></li>
         
             <li><a class="toctree-l4" href="#organization">Organization</a></li>
@@ -451,6 +453,11 @@
 <td>Two-letter ISO 3166-1 code of the country, e.g. 'NL'.</td>
 </tr>
 <tr>
+<td>Country</td>
+<td><code>string</code></td>
+<td>Country e.g. 'United Kingdom'</td>
+</tr>
+<tr>
 <td>CocNumber</td>
 <td><code>string</code></td>
 <td>Chamber of Commerce number.</td>
@@ -469,6 +476,16 @@
 <td>Type</td>
 <td><code>integer</code></td>
 <td><a href="#relationship-type">Type</a> of the CRM account.</td>
+</tr>
+<tr>
+<td>DefaultContact</td>
+<td><code>CrmContact</code></td>
+<td>The Default CrmContact</td>
+</tr>
+<tr>
+<td>DefaultContactId</td>
+<td><code>Guid</code></td>
+<td>Identifier for the DefaultContact</td>
 </tr>
 </tbody>
 </table>
@@ -492,6 +509,98 @@
 <tr>
 <td>2</td>
 <td>Employee</td>
+</tr>
+</tbody>
+</table>
+<h2 id="crmcontact">CrmContact</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td><code>Guid</code></td>
+<td>Identifier of the CRM contact.</td>
+</tr>
+<tr>
+<td>Salutation</td>
+<td><code>string</code></td>
+<td>The salutation e.g. 'Dear sir/madam,'</td>
+</tr>
+<tr>
+<td>FirstName</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>LastNamePrefix</td>
+<td><code>string</code></td>
+<td>The prefix of the last name e.g. [FirstName] van der [LastName].</td>
+</tr>
+<tr>
+<td>LastName</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CompanyName</td>
+<td><code>string</code></td>
+<td>The name of the company.</td>
+</tr>
+<tr>
+<td>Email</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Phone1</td>
+<td><code>string</code></td>
+<td>Primary phone number.</td>
+</tr>
+<tr>
+<td>Phone2</td>
+<td><code>string</code></td>
+<td>Secondary phone number.</td>
+</tr>
+<tr>
+<td>StreetName</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HouseNumber</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>PostalCode</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>City</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>UseParentAddress</td>
+<td><code>bool</code></td>
+<td>If this property is set; the contact should inherit it's company's address.</td>
+</tr>
+<tr>
+<td>CountryIso</td>
+<td><code>string</code></td>
+<td>Two-letter ISO 3166-1 code of the country, e.g. 'NL'.</td>
+</tr>
+<tr>
+<td>CrmAccountId</td>
+<td><code>Guid</code></td>
+<td>Identifier for the CrmAccount</td>
 </tr>
 </tbody>
 </table>
