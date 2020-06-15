@@ -11,7 +11,7 @@
       
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.0">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.a2408e81.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e35a1a6.min.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
       
@@ -51,6 +51,7 @@
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="blue">
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -510,22 +511,22 @@
                 <h1 id="acting-on-application-events">Acting on application events</h1>
 <p>Through <code>ElfskotApiClient.Events</code> you subscribe the different application events.</p>
 <h3 id="example">Example</h3>
-<pre><code class="cs">    class Program
+<div class="codehilite"><pre><span></span><code>    <span class="k">class</span> <span class="n">Program</span>
     {
-        static ElfskotApiClient elfskotApiClient;
+        <span class="n">static</span> <span class="n">ElfskotApiClient</span> <span class="n">elfskotApiClient</span>;
 
-        static void Main(string[] args)
+        <span class="n">static</span> <span class="n">void</span> <span class="n">Main</span>(<span class="n">string</span>[] <span class="nb">args</span>)
         {
-            elfskotApiClient = new ElfskotApiClient(new Guid(&quot;YOUR APPLICATION ID&quot;), &quot;YOUR SECRET&quot; );
-            elfskotApiClient.Events.QuotationRequested += Events_QuotationRequested;
+            <span class="n">elfskotApiClient</span> = <span class="nb">new</span> <span class="n">ElfskotApiClient</span>(<span class="nb">new</span> <span class="n">Guid</span>(<span class="s">&quot;YOUR APPLICATION ID&quot;</span>), <span class="s">&quot;YOUR SECRET&quot;</span> );
+            <span class="n">elfskotApiClient</span>.<span class="n">Events</span>.<span class="n">QuotationRequested</span> += <span class="n">Events_QuotationRequested</span>;
         }
 
-        private static void Events_QuotationRequested(object sender, IQuotationRequestedEventArgs e)
+        <span class="nb">private</span> <span class="n">static</span> <span class="n">void</span> <span class="n">Events_QuotationRequested</span>(<span class="n">object</span> <span class="n">sender</span>, <span class="n">IQuotationRequestedEventArgs</span> <span class="nb">e</span>)
         {
-            // Handle the quotation requested event.
+            // <span class="n">Handle</span> <span class="n">the</span> <span class="n">quotation</span> <span class="n">requested</span> <span class="n">event</span>.
         }
     }
-</code></pre>
+</code></pre></div>
                 
               
               
@@ -593,14 +594,14 @@
     </div>
     
       <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.27c6a5e6.min.js"
+            worker: "../../assets/javascripts/worker/search.7a2ea5ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

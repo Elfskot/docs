@@ -11,7 +11,7 @@
       
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.0">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.a2408e81.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e35a1a6.min.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
       
@@ -51,6 +51,7 @@
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="blue">
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -685,23 +686,25 @@
 <h3 id="event-response-examples">Event response examples</h3>
 <p>This section provides an overview of different examples of response payloads.</p>
 <h4 id="quotationrequested-quotationsubmitted-quotationaccepted-quotationverified">quotation.requested, quotation.submitted, quotation.accepted, quotation.verified</h4>
-<pre><code class="json">{
-    &quot;quotationId&quot;: &quot;56c4942c-d9c4-49db-beec-c1afcb1041c7&quot;,
-    &quot;userId&quot;: &quot;690dfb4a-6a8c-4816-b33e-f1f4565eb770&quot;
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;quotationId&quot;</span><span class="p">:</span> <span class="s2">&quot;56c4942c-d9c4-49db-beec-c1afcb1041c7&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="s2">&quot;690dfb4a-6a8c-4816-b33e-f1f4565eb770&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <h2 id="creating-a-webhooks-subscription">Creating a webhooks subscription</h2>
 <p>To create a new webhooks subscription you send a HTTP POST request:</p>
 <p><strong>URI:</strong> <code>POST https://api.elfsquad.io/api/2/webhooks</code></p>
 <p><strong>Content-Type:</strong> application/json</p>
 <p><strong>Body</strong>:</p>
-<pre><code class="json">{
-    &quot;identifier&quot;: &quot;2313449eb71a4abb3df934eec91712e&quot;,
-    &quot;topic&quot;: &quot;quotation.submitted&quot;,
-    &quot;callbackUrl&quot;: &quot;https://example.com/subscriptions/quotationrequested&quot;
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;identifier&quot;</span><span class="p">:</span> <span class="s2">&quot;2313449eb71a4abb3df934eec91712e&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;quotation.submitted&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;callbackUrl&quot;</span><span class="p">:</span> <span class="s2">&quot;https://example.com/subscriptions/quotationrequested&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <h4 id="request-payload">Request payload</h4>
 <table>
@@ -732,14 +735,15 @@
 </table>
 <h2 id="handling-a-webhooks-response">Handling a webhooks response</h2>
 <p>When the subscribed event is triggered we will send a POST request to the <code>callbackUrl</code> with the following payload:</p>
-<pre><code class="json">{
-    &quot;topic&quot;: &quot;quotation.submitted&quot;,
-    &quot;content&quot;: {
-        &quot;quotationId&quot;: &quot;56c4942c-d9c4-49db-beec-c1afcb1041c7&quot;,
-        &quot;userId&quot;: &quot;690dfb4a-6a8c-4816-b33e-f1f4565eb770&quot;
-    }
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;quotation.submitted&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;quotationId&quot;</span><span class="p">:</span> <span class="s2">&quot;56c4942c-d9c4-49db-beec-c1afcb1041c7&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="s2">&quot;690dfb4a-6a8c-4816-b33e-f1f4565eb770&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <h3 id="webhook-response-payload">Webhook response payload</h3>
 <table>
@@ -833,14 +837,14 @@
     </div>
     
       <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.27c6a5e6.min.js"
+            worker: "../../assets/javascripts/worker/search.7a2ea5ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

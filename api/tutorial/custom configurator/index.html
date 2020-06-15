@@ -11,7 +11,7 @@
       
       
       <link rel="shortcut icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.0">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.a2408e81.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6e35a1a6.min.css">
       
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.a46bcfb3.min.css">
       
@@ -51,6 +51,7 @@
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="blue">
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -500,52 +501,53 @@
 <p>When a user has selected a configuration model to be configured, we can use the Id property to start a new configuration session. </p>
 <p><code>GET /api/2/configurations/startnew/{featureModelId}</code></p>
 <p>Result (<em>Some data has been emitted for clarity.</em>):</p>
-<pre><code class="json">{
-  &quot;id&quot;: &quot;9c83b007-7e61-4b4c-9920-f125606844d5&quot;,
-  &quot;currencyIso&quot;: &quot;eur&quot;,
-  &quot;currency&quot;: {
-    &quot;iso&quot;: &quot;eur&quot;,
-    &quot;name&quot;: &quot;Euro&quot;,
-    &quot;symbol&quot;: &quot;\u20ac&quot;,
-    &quot;decimalDigits&quot;: 2,
-    &quot;rounding&quot;: 0,
-    &quot;namePlural&quot;: &quot;Euros&quot;,
-    &quot;isDefault&quot;: false
-  },
-  &quot;languageIso&quot;: &quot;nl&quot;,
-  &quot;countryIso&quot;: &quot;nl&quot;,
-  &quot;featureModelId&quot;: &quot;b8230fc6-454c-4190-a33a-08d5640714ca&quot;,
-  &quot;featureModel&quot;: ..., 
-  &quot;values&quot;: {
-    &quot;7bcf2363-4300-4a6a-faa9-08d5640714d2&quot;: 1,
-    &quot;580b4519-1a7a-46f9-fa7d-08d5640714d2&quot;: 4,
-    &quot;8c81fabc-eaed-41e2-8ec2-08d5d10145ad&quot;: 4,
-    &quot;e22f606d-3e4e-462e-8ec3-08d5d10145ad&quot;: 72,
-    ...
-  },
-  &quot;conflicts&quot;: null,
-  &quot;basePrice&quot;: 42750,
-  &quot;basePriceLabel&quot;: &quot;\u20ac 42.750,00&quot;,
-  &quot;basePriceIncVAT&quot;: 42750,
-  &quot;basePriceIncVATLabel&quot;: &quot;\u20ac 42.750,00&quot;,
-  &quot;basePriceExVAT&quot;: 42750,
-  &quot;basePriceExVATLabel&quot;: &quot;\u20ac 42.750,00&quot;,
-  &quot;additionalPrice&quot;: 10730,
-  &quot;additionalPriceLabel&quot;: &quot;\u20ac 10.730,00&quot;,
-  &quot;additionalPriceIncVAT&quot;: 10730,
-  &quot;additionalPriceIncVATLabel&quot;: &quot;\u20ac 10.730,00&quot;,
-  &quot;additionalPriceExVAT&quot;: 10730,
-  &quot;additionalPriceExVATLabel&quot;: &quot;\u20ac 10.730,00&quot;,
-  &quot;totalPrice&quot;: 53480,
-  &quot;totalPriceLabel&quot;: &quot;\u20ac 53.480,00&quot;,
-  &quot;totalPriceExVAT&quot;: 53480,
-  &quot;totalPriceExVATLabel&quot;: &quot;\u20ac 53.480,00&quot;,
-  &quot;totalPriceIncVAT&quot;: 53480,
-  &quot;totalPriceIncVATLabel&quot;: &quot;\u20ac 53.480,00&quot;,
-  &quot;leasePrices&quot;: null,
-  &quot;leasePricesLabels&quot;: null
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9c83b007-7e61-4b4c-9920-f125606844d5&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;currencyIso&quot;</span><span class="p">:</span> <span class="s2">&quot;eur&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;currency&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;iso&quot;</span><span class="p">:</span> <span class="s2">&quot;eur&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Euro&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;decimalDigits&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;rounding&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;namePlural&quot;</span><span class="p">:</span> <span class="s2">&quot;Euros&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;isDefault&quot;</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;languageIso&quot;</span><span class="p">:</span> <span class="s2">&quot;nl&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;countryIso&quot;</span><span class="p">:</span> <span class="s2">&quot;nl&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;featureModelId&quot;</span><span class="p">:</span> <span class="s2">&quot;b8230fc6-454c-4190-a33a-08d5640714ca&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;featureModel&quot;</span><span class="p">:</span> <span class="err">...</span><span class="p">,</span> 
+  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;7bcf2363-4300-4a6a-faa9-08d5640714d2&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;580b4519-1a7a-46f9-fa7d-08d5640714d2&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;8c81fabc-eaed-41e2-8ec2-08d5d10145ad&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;e22f606d-3e4e-462e-8ec3-08d5d10145ad&quot;</span><span class="p">:</span> <span class="mi">72</span><span class="p">,</span>
+    <span class="err">...</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;conflicts&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nt">&quot;basePrice&quot;</span><span class="p">:</span> <span class="mi">42750</span><span class="p">,</span>
+  <span class="nt">&quot;basePriceLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 42.750,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;basePriceIncVAT&quot;</span><span class="p">:</span> <span class="mi">42750</span><span class="p">,</span>
+  <span class="nt">&quot;basePriceIncVATLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 42.750,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;basePriceExVAT&quot;</span><span class="p">:</span> <span class="mi">42750</span><span class="p">,</span>
+  <span class="nt">&quot;basePriceExVATLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 42.750,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;additionalPrice&quot;</span><span class="p">:</span> <span class="mi">10730</span><span class="p">,</span>
+  <span class="nt">&quot;additionalPriceLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 10.730,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;additionalPriceIncVAT&quot;</span><span class="p">:</span> <span class="mi">10730</span><span class="p">,</span>
+  <span class="nt">&quot;additionalPriceIncVATLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 10.730,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;additionalPriceExVAT&quot;</span><span class="p">:</span> <span class="mi">10730</span><span class="p">,</span>
+  <span class="nt">&quot;additionalPriceExVATLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 10.730,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;totalPrice&quot;</span><span class="p">:</span> <span class="mi">53480</span><span class="p">,</span>
+  <span class="nt">&quot;totalPriceLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 53.480,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;totalPriceExVAT&quot;</span><span class="p">:</span> <span class="mi">53480</span><span class="p">,</span>
+  <span class="nt">&quot;totalPriceExVATLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 53.480,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;totalPriceIncVAT&quot;</span><span class="p">:</span> <span class="mi">53480</span><span class="p">,</span>
+  <span class="nt">&quot;totalPriceIncVATLabel&quot;</span><span class="p">:</span> <span class="s2">&quot;\u20ac 53.480,00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;leasePrices&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nt">&quot;leasePricesLabels&quot;</span><span class="p">:</span> <span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <p>Overview of important configuration properties:</p>
 <table>
@@ -639,14 +641,14 @@
     </div>
     
       <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "../../..",
           features: [],
           search: Object.assign({
-            worker: "../../../assets/javascripts/worker/search.27c6a5e6.min.js"
+            worker: "../../../assets/javascripts/worker/search.7a2ea5ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

@@ -11,7 +11,7 @@
       
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.0">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.a2408e81.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e35a1a6.min.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
       
@@ -51,6 +51,7 @@
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="blue">
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -589,149 +590,151 @@
                 
                 <h1 id="elfsquad-pyapi">Elfsquad PyApi</h1>
 <p>The following code is the implementation of theElfsquad PyApi. It is adviced to store the code in a file <code>elfskotapi.py</code>, which can then be included in your Python projects. The usage of the PyApi is described in the remainder of this document.</p>
-<pre><code class="python"># Required packages:
-# pip3 install requests pandas
-import requests
-import json
-from enum import Enum
-import pandas as pd
-import math
+<div class="codehilite"><pre><span></span><code><span class="c1"># Required packages:</span>
+<span class="c1"># pip3 install requests pandas</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
-def unpack(s): return list(s) if type(s) != 'list' else s
-def head(s): return s[0] if len(s) &gt; 0 else []
-def tail(s): return s[1:]
-def reverse(s): return s[::-1]
-def last(s): return s[-1:]
-def init(s): return s[0:len(s)-1]
-def take(s, n): return s[:n]
-def drop(s, n): return s[n:]
+<span class="k">def</span> <span class="nf">unpack</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;list&#39;</span> <span class="k">else</span> <span class="n">s</span>
+<span class="k">def</span> <span class="nf">head</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">tail</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="k">return</span> <span class="n">s</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">last</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+<span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">take</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span> <span class="k">return</span> <span class="n">s</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">drop</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span> <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span>
 
-class TextType(Enum):
-    Description = 0
-    ExtendedDescription = 1
-    MoreInfo = 2
+<span class="k">class</span> <span class="nc">TextType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">Description</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">ExtendedDescription</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">MoreInfo</span> <span class="o">=</span> <span class="mi">2</span>
 
-class ElfskotApi():
+<span class="k">class</span> <span class="nc">ElfskotApi</span><span class="p">():</span>
 
-    base_address = 'https://api.elfsquad.io/api/2/'
+    <span class="n">base_address</span> <span class="o">=</span> <span class="s1">&#39;https://api.elfsquad.io/api/2/&#39;</span>
 
-    def __init__(self, application_id, secret):
-        self.application_id = application_id
-        self.secret = secret
-        self.get_token()
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">application_id</span><span class="p">,</span> <span class="n">secret</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">application_id</span> <span class="o">=</span> <span class="n">application_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">secret</span> <span class="o">=</span> <span class="n">secret</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_token</span><span class="p">()</span>
 
-    def get_token(self):
-        payload = { 'clientId': self.application_id, 'secret': self.secret}
-        result = requests.post(self.get_url('auth/elfskotconnectlogin'), json=payload)
-        self.check_result(result)
-        self.token = json.loads(result.text)['accessToken']
+    <span class="k">def</span> <span class="nf">get_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;clientId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">application_id</span><span class="p">,</span> <span class="s1">&#39;secret&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret</span><span class="p">}</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s1">&#39;auth/elfskotconnectlogin&#39;</span><span class="p">),</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s1">&#39;accessToken&#39;</span><span class="p">]</span>
 
-    def check_result(self, result):
-        if result.status_code != 200:
-            raise ValueError('Error: API returned status code {}'.format(result.status_code))
-        return True
+    <span class="k">def</span> <span class="nf">check_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Error: API returned status code </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">status_code</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
-    def get_auth_header(self): return {'Authorization': 'bearer {}'.format(self.token)}
-    def get_url(self, endpoint): return self.base_address + endpoint
+    <span class="k">def</span> <span class="nf">get_auth_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;bearer </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">)}</span>
+    <span class="k">def</span> <span class="nf">get_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_address</span> <span class="o">+</span> <span class="n">endpoint</span>
 
-    def http_return_if_valid(self, result):
-        self.check_result(result)
-        return json.loads(result.text)
+    <span class="k">def</span> <span class="nf">http_return_if_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 
-    def http_get(self, endpoint):
-        print(endpoint)
-        return self.http_return_if_valid(
-            requests.get(self.get_url(endpoint), headers=self.get_auth_header())
-        )
+    <span class="k">def</span> <span class="nf">http_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_return_if_valid</span><span class="p">(</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="n">endpoint</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_auth_header</span><span class="p">())</span>
+        <span class="p">)</span>
 
-    def http_post(self, endpoint, o):
-        return self.http_return_if_valid(
-            requests.post(self.get_url(endpoint), json=o, headers=self.get_auth_header())
-        )
+    <span class="k">def</span> <span class="nf">http_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_return_if_valid</span><span class="p">(</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="n">endpoint</span><span class="p">),</span> <span class="n">json</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_auth_header</span><span class="p">())</span>
+        <span class="p">)</span>
 
-    def http_put(self, endpoint, o):
-        return self.http_return_if_valid(
-            requests.put(self.get_url(endpoint), json=o, headers=self.get_auth_header())
-        )
+    <span class="k">def</span> <span class="nf">http_put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_return_if_valid</span><span class="p">(</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="n">endpoint</span><span class="p">),</span> <span class="n">json</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_auth_header</span><span class="p">())</span>
+        <span class="p">)</span>
 
-    def http_delete(self, endpoint, key):
-        result = requests.delete(self.get_url(endpoint) + '/{}'.format(key), headers=self.get_auth_header())
-        if result.status_code != 200: 
-            raise ValueError('Error: API returned status code {}'.format(result.status_code))
+    <span class="k">def</span> <span class="nf">http_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_auth_header</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Error: API returned status code </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">status_code</span><span class="p">))</span>
 
-    def query(self, endpoint): return Query(endpoint, self.http_get)
-    def all(self, endpoint): return self.query(endpoint)
-    def find(self, endpoint, p, v): return self.query(endpoint).filter(p, v)
-    def get(self, endpoint, k): return self.find(endpoint, 'id', k)
-    def new(self, endpoint, o): return self.http_post(endpoint, o)
-    def update(self, endpoint, o): return self.http_put(endpoint, o)
-    def delete(self, endpoint, k): self.http_delete(endpoint, k)  
-    def help(self, endpoint): print('Model for {}:\r\n{}'
-                                    .format(endpoint, list(self.first(endpoint, 'id', '').keys())))
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span> <span class="k">return</span> <span class="n">Query</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_get</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_post</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_put</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_delete</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>  
+    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model for </span><span class="si">{}</span><span class="s1">:</span><span class="se">\r\n</span><span class="si">{}</span><span class="s1">&#39;</span>
+                                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
 
-class Query():
+<span class="k">class</span> <span class="nc">Query</span><span class="p">():</span>
 
-    def __init__(self, endpoint, http):
-        self.http = http
-        self.endpoint = endpoint
-        self.parameters = {}
-        self.data = []
-        self.index = 0
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">http</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">http</span> <span class="o">=</span> <span class="n">http</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">=</span> <span class="n">endpoint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
 
-    def raise_(self, t): raise ValueError(t)
+    <span class="k">def</span> <span class="nf">raise_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-    def skip(self, n):
-        if 'skip' in self.parameters: self.raise_('Skip already set.')
-        self.parameters['skip'] = n
-        return self
+    <span class="k">def</span> <span class="nf">skip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;skip&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="s1">&#39;Skip already set.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;skip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    def take(self, n):
-        if 'limit' in self.parameters: self.raise_('Take already called.')
-        self.parameters['limit'] = n
-        return self
+    <span class="k">def</span> <span class="nf">take</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;limit&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="s1">&#39;Take already called.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;limit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    # this does no require multiple includes yet, it is limited to
-    # one field.
-    def include(self, name):
-        self.parameters['include'] = name
-        return self
+    <span class="c1"># this does no require multiple includes yet, it is limited to</span>
+    <span class="c1"># one field.</span>
+    <span class="k">def</span> <span class="nf">include</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;include&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    def filter(self, property, value):
-        self.parameters[property] = value
-        return self
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">property</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="nb">property</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    def sort(self, property, descending = False):
-        self.parameters['orderby'] = property
-        return self
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">property</span><span class="p">,</span> <span class="n">descending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;orderby&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">property</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    def descending(self):
-        self.parameters['descending'] = True
-        return self
+    <span class="k">def</span> <span class="nf">descending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;descending&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    def url_qry_params(self):
-        return '{}?{}'.format(self.endpoint, '&amp;'.join(['{}={}'.format(k,v) 
-                                                       for k,v in dict(self.parameters).items()])).lower()
+    <span class="k">def</span> <span class="nf">url_qry_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">?</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="s1">&#39;&amp;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> 
+                                                       <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()]))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
-    def __next__(self): 
-        if self.data == []: self.data = self.http(self.url_qry_params())
-        try: result = self.data[self.index]
-        except IndexError: raise StopIteration
-        self.index += 1
-        return result
+    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="p">[]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url_qry_params</span><span class="p">())</span>
+        <span class="k">try</span><span class="p">:</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">result</span>
 
-    def __iter__(self):
-        return self
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    def list(self): return list(self)
-    def df(self): return pd.DataFrame(self.list())
-    def first(self): return head(self.list())
-</code></pre>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">())</span>
+    <span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="n">head</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">())</span>
+</code></pre></div>
+
 
 <h2 id="pyapi-reference">PyApi reference</h2>
 <h3 id="elfskotapi">ElfskotApi</h3>
 <p>The <code>ElfskotApi</code> object is a HTTP client which also handles the authorization token. It allows the <code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> HTTP methods. The <code>ElfskotApi</code> is instantiated with a <code>appId</code> and <code>secret</code> which are found in the integration section of the EMS. The following example shows how to instantiate the object:</p>
-<pre><code class="python">db = ElfskotApi('appId', 'secret')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">db</span> <span class="o">=</span> <span class="n">ElfskotApi</span><span class="p">(</span><span class="s1">&#39;appId&#39;</span><span class="p">,</span> <span class="s1">&#39;secret&#39;</span><span class="p">)</span>
+</code></pre></div>
+
 
 <p>The following methods are available for the <code>ElfskotApi</code> object:</p>
 <table>
@@ -848,71 +851,75 @@ class Query():
 <h2 id="usage-demonstration">Usage demonstration</h2>
 <h3 id="getting-started">Getting started</h3>
 <p>First instantiate a new <code>ElfskotApi</code> object with the <code>appId</code> and <code>secret</code> which are found in the integrations tab in your EMS.</p>
-<pre><code class="python">db = ElfskotApi('appId', 'secret')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">db</span> <span class="o">=</span> <span class="n">ElfskotApi</span><span class="p">(</span><span class="s1">&#39;appId&#39;</span><span class="p">,</span> <span class="s1">&#39;secret&#39;</span><span class="p">)</span>
+</code></pre></div>
+
 
 <p>While initializing the object, an authorization token is requested from the API. When the object is initialized, it is now possible to query our REST API.</p>
 <p>As an example, we will request a sorted list (by name) of features. Also, the texts of the feature should be included in the query. Finally, we take the first feature that is found and print it.</p>
-<pre><code class="python">db.all('features').sort('name').include('texts').take(1).first()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">db</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s1">&#39;features&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;texts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</code></pre></div>
 
-<pre><code>{'articleCode': None,
- 'cardImageUrl': None,
- 'category': None,
- 'categoryId': None,
- 'createdDate': '2018-03-30T09:52:47.7797469+00:00',
- 'creatorId': '7c10626d-6d57-403c-ec51-08d56407f341',
- 'customField1': None,
- 'customField2': None,
- 'customField3': None,
- 'customField4': None,
- 'customField5': None,
- 'hiddenThreeDModelItems': [],
- 'id': 'be855af0-3cf2-47c0-bac8-08d595a67251',
- 'marginPct': 0.0,
- 'maxValue': 0.0,
- 'minValue': 0.0,
- 'name': None,
- 'organizationId': None,
- 'organizationName': None,
- 'organizationSellsFeature': None,
- 'packingUnit': 0.0,
- 'properties': None,
- 'reference': None,
- 'salesPrice': 0.0,
- 'salesPriceLabel': '€ 0,00',
- 'stepValue': 0.0,
- 'subcategoryIds': [],
- 'synced': False,
- 'tags': [],
- 'texts': [],
- 'threeDModelItems': [],
- 'type': 0,
- 'unitOfMeasure': None,
- 'unitOfMeasurement': None,
- 'unitOfMeasurementId': None,
- 'updatedDate': '2018-10-10T12:09:21.8682548+00:00',
- 'vat': None,
- 'vatId': None}
-</code></pre>
+
+<div class="codehilite"><pre><span></span><code><span class="err">{&#39;articleCode&#39;: None,</span>
+<span class="err"> &#39;cardImageUrl&#39;: None,</span>
+<span class="err"> &#39;category&#39;: None,</span>
+<span class="err"> &#39;categoryId&#39;: None,</span>
+<span class="err"> &#39;createdDate&#39;: &#39;2018-03-30T09:52:47.7797469+00:00&#39;,</span>
+<span class="err"> &#39;creatorId&#39;: &#39;7c10626d-6d57-403c-ec51-08d56407f341&#39;,</span>
+<span class="err"> &#39;customField1&#39;: None,</span>
+<span class="err"> &#39;customField2&#39;: None,</span>
+<span class="err"> &#39;customField3&#39;: None,</span>
+<span class="err"> &#39;customField4&#39;: None,</span>
+<span class="err"> &#39;customField5&#39;: None,</span>
+<span class="err"> &#39;hiddenThreeDModelItems&#39;: [],</span>
+<span class="err"> &#39;id&#39;: &#39;be855af0-3cf2-47c0-bac8-08d595a67251&#39;,</span>
+<span class="err"> &#39;marginPct&#39;: 0.0,</span>
+<span class="err"> &#39;maxValue&#39;: 0.0,</span>
+<span class="err"> &#39;minValue&#39;: 0.0,</span>
+<span class="err"> &#39;name&#39;: None,</span>
+<span class="err"> &#39;organizationId&#39;: None,</span>
+<span class="err"> &#39;organizationName&#39;: None,</span>
+<span class="err"> &#39;organizationSellsFeature&#39;: None,</span>
+<span class="err"> &#39;packingUnit&#39;: 0.0,</span>
+<span class="err"> &#39;properties&#39;: None,</span>
+<span class="err"> &#39;reference&#39;: None,</span>
+<span class="err"> &#39;salesPrice&#39;: 0.0,</span>
+<span class="err"> &#39;salesPriceLabel&#39;: &#39;€ 0,00&#39;,</span>
+<span class="err"> &#39;stepValue&#39;: 0.0,</span>
+<span class="err"> &#39;subcategoryIds&#39;: [],</span>
+<span class="err"> &#39;synced&#39;: False,</span>
+<span class="err"> &#39;tags&#39;: [],</span>
+<span class="err"> &#39;texts&#39;: [],</span>
+<span class="err"> &#39;threeDModelItems&#39;: [],</span>
+<span class="err"> &#39;type&#39;: 0,</span>
+<span class="err"> &#39;unitOfMeasure&#39;: None,</span>
+<span class="err"> &#39;unitOfMeasurement&#39;: None,</span>
+<span class="err"> &#39;unitOfMeasurementId&#39;: None,</span>
+<span class="err"> &#39;updatedDate&#39;: &#39;2018-10-10T12:09:21.8682548+00:00&#39;,</span>
+<span class="err"> &#39;vat&#39;: None,</span>
+<span class="err"> &#39;vatId&#39;: None}</span>
+</code></pre></div>
+
 
 <p>In the same way, it is possible to request all the categories from the API, and display them by id and name. Do note that the name is a multilingual field, therefore it returns a list with the names in each language. It is also required to include the texts, because this is a different object.</p>
-<pre><code class="python">list(map(lambda c: {c['texts'][0]['value']: c['id']}, db.all('categories').include('texts')))
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="p">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;texts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]},</span> <span class="n">db</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s1">&#39;categories&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;texts&#39;</span><span class="p">)))</span>
+</code></pre></div>
 
-<pre><code>[{'Model': '4fde3e79-c90e-4844-3d1b-08d50589c407'},
- {'Engine': 'c6619774-d2aa-4bc4-3d1d-08d50589c407'},
- {'Transmission': 'b60ee5fb-bb67-4420-3d1e-08d50589c407'},
- {'Exterior color': '3ef76c1c-0d4a-4598-3d1f-08d50589c407'},
- {'Chassis': '79d10665-18ca-4405-3d20-08d50589c407'},
- {'Interior': '88e43ee0-be1c-4efe-3d21-08d50589c407'},
- {'Infotainment': 'dd2c73a1-007d-4c32-3d22-08d50589c407'},
- {'Rims': 'a51f921f-8ba4-47b1-3d23-08d50589c407'},
- {'Tires': '1c52e16f-fb87-41dd-3d24-08d50589c407'},
- {'Exhaust': '2ad69069-8e98-4034-d91b-08d507486180'},
- {'Sedans': '2ac6bffb-2543-48f3-f3d4-08d5688fd09d'},
- {'Off-road': 'e4e18ddb-9cc2-4155-67c6-08d568a38d77'}]
-</code></pre>
+
+<div class="codehilite"><pre><span></span><code><span class="err">[{&#39;Model&#39;: &#39;4fde3e79-c90e-4844-3d1b-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Engine&#39;: &#39;c6619774-d2aa-4bc4-3d1d-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Transmission&#39;: &#39;b60ee5fb-bb67-4420-3d1e-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Exterior color&#39;: &#39;3ef76c1c-0d4a-4598-3d1f-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Chassis&#39;: &#39;79d10665-18ca-4405-3d20-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Interior&#39;: &#39;88e43ee0-be1c-4efe-3d21-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Infotainment&#39;: &#39;dd2c73a1-007d-4c32-3d22-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Rims&#39;: &#39;a51f921f-8ba4-47b1-3d23-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Tires&#39;: &#39;1c52e16f-fb87-41dd-3d24-08d50589c407&#39;},</span>
+<span class="err"> {&#39;Exhaust&#39;: &#39;2ad69069-8e98-4034-d91b-08d507486180&#39;},</span>
+<span class="err"> {&#39;Sedans&#39;: &#39;2ac6bffb-2543-48f3-f3d4-08d5688fd09d&#39;},</span>
+<span class="err"> {&#39;Off-road&#39;: &#39;e4e18ddb-9cc2-4155-67c6-08d568a38d77&#39;}]</span>
+</code></pre></div>
                 
               
               
@@ -966,14 +973,14 @@ class Query():
     </div>
     
       <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.27c6a5e6.min.js"
+            worker: "../../assets/javascripts/worker/search.7a2ea5ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

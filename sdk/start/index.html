@@ -11,7 +11,7 @@
       
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.0">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.a2408e81.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e35a1a6.min.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
       
@@ -51,6 +51,7 @@
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="blue">
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -651,72 +652,78 @@
 <p>See the <a href="/api/start/#authentication">Authentication section</a> of the REST API on how to acquire your <em>ApplicationId</em> and <em>Secret</em>.</p>
 <h2 id="initializing-the-elfskotapiclient">Initializing the ElfskotApiClient</h2>
 <p>All interactions with the Elfskot API are done using the <em>ElfskotApiClient</em>:</p>
-<pre><code class="csharp">var elfskotApiClient = new ElfskotApiClient(new Guid(&quot;YOUR APPLICATION ID&quot;),&quot;YOUR SECRET&quot;);
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kt">var</span> <span class="n">elfskotApiClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ElfskotApiClient</span><span class="p">(</span><span class="k">new</span> <span class="n">Guid</span><span class="p">(</span><span class="s">&quot;YOUR APPLICATION ID&quot;</span><span class="p">),</span><span class="s">&quot;YOUR SECRET&quot;</span><span class="p">);</span>
+</code></pre></div>
+
 
 <h2 id="data-management">Data management</h2>
 <p>Data management interactions are done through ManagementResources that can be directly accessed through <code>elfskotApiClient.Management</code>.</p>
 <h3 id="retrieving-entities">Retrieving entities</h3>
 <p>To retrieve a entity by its ID you can use the <code>GetById</code>  method:</p>
-<pre><code class="csharp">var contact = elfskotApiClient
-    .Management
-    .CrmContacts
-    .GetById(new Guid(&quot;56448abb-f00e-45a8-b1ac-08c62c8ed8f5&quot;));
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kt">var</span> <span class="n">contact</span> <span class="p">=</span> <span class="n">elfskotApiClient</span>
+    <span class="p">.</span><span class="n">Management</span>
+    <span class="p">.</span><span class="n">CrmContacts</span>
+    <span class="p">.</span><span class="n">GetById</span><span class="p">(</span><span class="k">new</span> <span class="n">Guid</span><span class="p">(</span><span class="s">&quot;56448abb-f00e-45a8-b1ac-08c62c8ed8f5&quot;</span><span class="p">));</span>
+</code></pre></div>
+
 
 <p>To retrieve multiple entities you can use the <code>Get</code> method:</p>
-<pre><code class="csharp">var contacts = elfskotApiClient
-    .Management
-    .CrmContacts
-    .OrderBy(c =&gt; c.CreatedDate)
-    .Limit(10)
-    .Get();
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kt">var</span> <span class="n">contacts</span> <span class="p">=</span> <span class="n">elfskotApiClient</span>
+    <span class="p">.</span><span class="n">Management</span>
+    <span class="p">.</span><span class="n">CrmContacts</span>
+    <span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">CreatedDate</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Limit</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Get</span><span class="p">();</span>
+</code></pre></div>
+
 
 <h4 id="including-referenced-entities">Including referenced entities</h4>
 <p>By default the API will not include referenced entities. So for example if you want to retrieve the lines of quotation you can use the <code>Include</code> method:</p>
-<pre><code class="csharp">var quotation = elfskotApiClient
-    .Management
-    .Quotations
-    .Include(q =&gt; q.Lines) // &lt;-- Reference the entity you want to include.
-    .GetById(new Guid(&quot;56448abb-f00e-45a8-b1ac-08c62c8ed8f5&quot;));
+<div class="codehilite"><pre><span></span><code><span class="kt">var</span> <span class="n">quotation</span> <span class="p">=</span> <span class="n">elfskotApiClient</span>
+    <span class="p">.</span><span class="n">Management</span>
+    <span class="p">.</span><span class="n">Quotations</span>
+    <span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">q</span> <span class="p">=&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">Lines</span><span class="p">)</span> <span class="c1">// &lt;-- Reference the entity you want to include.</span>
+    <span class="p">.</span><span class="n">GetById</span><span class="p">(</span><span class="k">new</span> <span class="n">Guid</span><span class="p">(</span><span class="s">&quot;56448abb-f00e-45a8-b1ac-08c62c8ed8f5&quot;</span><span class="p">));</span>
 
-foreach(var line in quotation.Lines)
-{
-}
-</code></pre>
+<span class="k">foreach</span><span class="p">(</span><span class="kt">var</span> <span class="n">line</span> <span class="k">in</span> <span class="n">quotation</span><span class="p">.</span><span class="n">Lines</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <h3 id="inserting-entities">Inserting entities</h3>
 <p>To insert entities you can use the <code>Create</code> and <code>BulkCreate</code> methods:</p>
-<pre><code class="csharp">var newCrmAccount = new CrmAccount()
-    {
-        CompanyName = &quot;Brightwater Industries&quot;
-    };
+<div class="codehilite"><pre><span></span><code><span class="kt">var</span> <span class="n">newCrmAccount</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CrmAccount</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">CompanyName</span> <span class="p">=</span> <span class="s">&quot;Brightwater Industries&quot;</span>
+    <span class="p">};</span>
 
-newCrmAccount = elfskotApiClient
-    .Management
-    .CrmAccounts
-    .Create(newCrmAccount);
+<span class="n">newCrmAccount</span> <span class="p">=</span> <span class="n">elfskotApiClient</span>
+    <span class="p">.</span><span class="n">Management</span>
+    <span class="p">.</span><span class="n">CrmAccounts</span>
+    <span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">newCrmAccount</span><span class="p">);</span>
 
-var newIdentifier = newCrmAccount.Id;
-</code></pre>
+<span class="kt">var</span> <span class="n">newIdentifier</span> <span class="p">=</span> <span class="n">newCrmAccount</span><span class="p">.</span><span class="n">Id</span><span class="p">;</span>
+</code></pre></div>
+
 
 <h3 id="updating-entities">Updating entities</h3>
 <p>To update a entity you can use the <code>Update</code> or <code>BulkUpdate</code> methods:</p>
-<pre><code class="csharp">quotation.Deliverydate = DateTimeOffset.Now;
-elfskotApiClient
-    .Management
-    .Quotations
-    .Update(quotation);
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">quotation</span><span class="p">.</span><span class="n">Deliverydate</span> <span class="p">=</span> <span class="n">DateTimeOffset</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span>
+<span class="n">elfskotApiClient</span>
+    <span class="p">.</span><span class="n">Management</span>
+    <span class="p">.</span><span class="n">Quotations</span>
+    <span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">quotation</span><span class="p">);</span>
+</code></pre></div>
+
 
 <h3 id="deleting-entities">Deleting entities</h3>
 <p>To delete a entity you can use the <code>Delete</code> method:</p>
-<pre><code class="csharp">elfskotApiClient
-    .Management
-    .CrmContacts
-    .Delete(new Guid(&quot;56448abb-f00e-45a8-b1ac-08c62c8ed8f5&quot;));
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">elfskotApiClient</span>
+    <span class="p">.</span><span class="n">Management</span>
+    <span class="p">.</span><span class="n">CrmContacts</span>
+    <span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="k">new</span> <span class="n">Guid</span><span class="p">(</span><span class="s">&quot;56448abb-f00e-45a8-b1ac-08c62c8ed8f5&quot;</span><span class="p">));</span>
+</code></pre></div>
                 
               
               
@@ -784,14 +791,14 @@ elfskotApiClient
     </div>
     
       <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.27c6a5e6.min.js"
+            worker: "../../assets/javascripts/worker/search.7a2ea5ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
